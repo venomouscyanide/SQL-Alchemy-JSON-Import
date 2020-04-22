@@ -1,6 +1,7 @@
 import json
 from datetime import datetime
 from typing import Dict, List
+from pytz import utc
 
 
 class Utils:
