@@ -9,21 +9,23 @@ from sqlalchemy.orm import Session
 
 def insert_data_from_json(json_path: str, current_session: Session) -> None:
     json_data_from_file = Utils.load_json_data_from_file(json_path)
-    rows_to_add = get_rows_to_create(json_data_from_file)
-    current_session.bulk_save_objects(rows_to_add)
-    current_session.commit()
+    get_rows_to_create(json_data_from_file, current_session)
 
 
-def get_rows_to_create(json_data_from_file: Dict) -> List[NewsArticle]:
-    rows_to_add = list()
+def get_rows_to_create(json_data_from_file: Dict, current_session: Session) -> List[NewsArticle]:
     len_of_rows = len(json_data_from_file)
     print(f"Total rows to import {len_of_rows}")
+    import_error_indices = list()
     for index, json_data in enumerate(json_data_from_file):
-        print(f"Import {index} of {len_of_rows}")
+        print(f"Import {index} of {len_of_rows - 1}")
         _preprocess_data(json_data)
         new_row = NewsArticle(**json_data)
-        rows_to_add.append(new_row)
-    return rows_to_add
+        try:
+            current_session.add(new_row)
+        except Exception as e:
+            print(f"Exception occurred {str(e)}")
+            import_error_indices.append(index)
+    print("Could Not Import: ", import_error_indices)
 
 
 def _preprocess_data(json_data: Dict):
