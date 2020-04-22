@@ -10,6 +10,7 @@ from sqlalchemy.orm import Session
 def insert_data_from_json(json_path: str, current_session: Session) -> None:
     json_data_from_file = Utils.load_json_data_from_file(json_path)
     get_rows_to_create(json_data_from_file, current_session)
+    current_session.commit()
 
 
 def get_rows_to_create(json_data_from_file: Dict, current_session: Session) -> List[NewsArticle]:
