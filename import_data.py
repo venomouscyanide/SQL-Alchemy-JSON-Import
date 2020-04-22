@@ -16,7 +16,10 @@ def insert_data_from_json(json_path: str, current_session: Session) -> None:
 
 def get_rows_to_create(json_data_from_file: Dict) -> List[NewsArticle]:
     rows_to_add = list()
-    for json_data in json_data_from_file:
+    len_of_rows = len(json_data_from_file)
+    print(f"Total rows to import {len_of_rows}")
+    for index, json_data in enumerate(json_data_from_file):
+        print(f"Import {index} of {len_of_rows}")
         _preprocess_data(json_data)
         new_row = NewsArticle(**json_data)
         rows_to_add.append(new_row)
