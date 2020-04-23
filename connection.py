@@ -38,5 +38,5 @@ def _create_table_if_needed(table_name: str, created_engine: Engine) -> None:
                       Column('summary', JSON),
                       Column('title', Text),
                       Column('words_count', Integer),
-                      mysql_charset='utf8')
+                      mysql_charset='latin1')
     metadata.create_all(created_engine, tables=[new_table], checkfirst=True)

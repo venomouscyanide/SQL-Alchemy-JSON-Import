@@ -26,5 +26,5 @@ class Utils:
     @staticmethod
     def convert_list_to_str_with_encoding(list_of_str: List[str]) -> bytes:
         string_converted = ','.join(list_of_str) if list_of_str else ''
-        latin1_encoded_string = string_converted.encode('latin-1', errors='ignore')
+        latin1_encoded_string = Utils.encode_to_latin1(string_converted)
         return latin1_encoded_string

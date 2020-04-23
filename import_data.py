@@ -37,7 +37,7 @@ def _preprocess_data(json_data: Dict):
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('--db_URI', help='MySQL URI', required=False,
-                        default='mysql+mysqldb://root:starpark@localhost:7674/newsdumo'),
+                        default='mysql+mysqldb://root:starpark@localhost:7674/newsdumo?charset=latin1'),
     parser.add_argument('--input_json_file', help='Input Json file', required=False, default='test_output.json'),
 
     args = parser.parse_args()
